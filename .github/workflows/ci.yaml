@@ -47,13 +47,30 @@ jobs:
 
 
 
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
     needs: test
+
+    # On publie l'image uniquement depuis main
     if: github.ref == 'refs/heads/main'
+
+    permissions:
+      contents: read
+      packages: write
+
     steps:
       - uses: actions/checkout@v4
-      - name: Vérifier que l'app démarre
-        run: |
-          pip install -r requirements.txt
-          python -c "from app.main import app; print('Import OK')"
+
+      - name: Connexion au GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build et push de l'image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/pipeline-craft:${{ github.sha }}
