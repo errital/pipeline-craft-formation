@@ -1,7 +1,11 @@
 name: CI
-
-on: [push, pull_request]
-
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'app/**'
+      - 'tests/**'
+  pull_request:
 jobs:
   lint:
     runs-on: ubuntu-latest
