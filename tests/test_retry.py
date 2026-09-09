@@ -8,4 +8,3 @@ def test_retry():
         raise AssertionError("Échec volontaire pour tester le retry")
 
     assert True
-    
