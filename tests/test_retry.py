@@ -1,10 +1,12 @@
 from pathlib import Path
+import tempfile
 
-COUNTER_FILE = Path("/tmp/retry-demo")
 
 def test_retry():
-    if not COUNTER_FILE.exists():
-        COUNTER_FILE.write_text("1")
-        assert False 
+    counter_file = Path(tempfile.gettempdir()) / "retry-demo"
+
+    if not counter_file.exists():
+        counter_file.write_text("1")
+        raise AssertionError("Échec volontaire pour tester le retry")
 
     assert True
