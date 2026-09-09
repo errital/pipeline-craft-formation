@@ -1,5 +1,5 @@
 """Pipeline Craft — API FastAPI fil rouge pour les labs CI/CD."""
-
+# ajout de com
 from fastapi import FastAPI
 
 from app.config import settings
