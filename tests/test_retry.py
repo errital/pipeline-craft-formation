@@ -1,12 +1,10 @@
-import tempfile
-from pathlib import Path
+import os
 
 
 def test_retry():
-    counter_file = Path(tempfile.gettempdir()) / "retry-demo"
+    attempt = os.getenv("CI_RETRY_TEST")
 
-    if not counter_file.exists():
-        counter_file.write_text("1")
+    if attempt == "fail":
         raise AssertionError("Échec volontaire pour tester le retry")
 
     assert True
