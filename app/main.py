@@ -1,5 +1,5 @@
 """Pipeline Craft — API FastAPI fil rouge pour les labs CI/CD."""
-# ajout de comentaire 2
+# ajout de comentaire 2->3
 from fastapi import FastAPI
 
 from app.config import settings
